@@ -18,9 +18,6 @@ public sealed class RebrickableClientUtil : IRebrickableClientUtil
 {
     private readonly AsyncSingleton<RebrickableOpenApiClient> _client;
 
-    // Because they don't specify it correctly in the OpenApi doc...
-    private const string _apiUrl = "https://rebrickable.com/api/v3/";
-
     public RebrickableClientUtil(IRebrickableHttpClient httpClientUtil, IConfiguration configuration)
     {
         _client = new AsyncSingleton<RebrickableOpenApiClient>(async (token, _) =>
@@ -30,8 +27,6 @@ public sealed class RebrickableClientUtil : IRebrickableClientUtil
             var apiKey = configuration.GetValueStrict<string>("Rebrickable:ApiKey");
 
             var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider("Authorization", $"key {apiKey}"), httpClient: httpClient);
-
-            requestAdapter.BaseUrl = "https://rebrickable.com/api/v3/";
 
             return new RebrickableOpenApiClient(requestAdapter);
         });
