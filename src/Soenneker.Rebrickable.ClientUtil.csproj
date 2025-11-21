@@ -45,6 +45,6 @@
         <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.14" />
         <PackageReference Include="Soenneker.Rebrickable.Client" Version="4.0.44" />
         <PackageReference Include="Soenneker.Rebrickable.OpenApiClient" Version="4.0.96" />
-        <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.718" />
+        <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="4.0.720" />
     </ItemGroup>
 </Project>
