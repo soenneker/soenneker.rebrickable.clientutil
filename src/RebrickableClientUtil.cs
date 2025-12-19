@@ -20,7 +20,7 @@ public sealed class RebrickableClientUtil : IRebrickableClientUtil
 
     public RebrickableClientUtil(IRebrickableHttpClient httpClientUtil, IConfiguration configuration)
     {
-        _client = new AsyncSingleton<RebrickableOpenApiClient>(async (token, _) =>
+        _client = new AsyncSingleton<RebrickableOpenApiClient>(async token =>
         {
             HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
 
