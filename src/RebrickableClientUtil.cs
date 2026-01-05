@@ -17,19 +17,25 @@ namespace Soenneker.Rebrickable.ClientUtil;
 public sealed class RebrickableClientUtil : IRebrickableClientUtil
 {
     private readonly AsyncSingleton<RebrickableOpenApiClient> _client;
+    private readonly IRebrickableHttpClient _httpClientUtil;
+    private readonly IConfiguration _configuration;
 
     public RebrickableClientUtil(IRebrickableHttpClient httpClientUtil, IConfiguration configuration)
     {
-        _client = new AsyncSingleton<RebrickableOpenApiClient>(async token =>
-        {
-            HttpClient httpClient = await httpClientUtil.Get(token).NoSync();
+        _httpClientUtil = httpClientUtil;
+        _configuration = configuration;
+        _client = new AsyncSingleton<RebrickableOpenApiClient>(CreateClient);
+    }
 
-            var apiKey = configuration.GetValueStrict<string>("Rebrickable:ApiKey");
+    private async ValueTask<RebrickableOpenApiClient> CreateClient(CancellationToken token)
+    {
+        HttpClient httpClient = await _httpClientUtil.Get(token).NoSync();
 
-            var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider("Authorization", $"key {apiKey}"), httpClient: httpClient);
+        var apiKey = _configuration.GetValueStrict<string>("Rebrickable:ApiKey");
 
-            return new RebrickableOpenApiClient(requestAdapter);
-        });
+        var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider("Authorization", $"key {apiKey}"), httpClient: httpClient);
+
+        return new RebrickableOpenApiClient(requestAdapter);
     }
 
     public ValueTask<RebrickableOpenApiClient> Get(CancellationToken cancellationToken = default)
