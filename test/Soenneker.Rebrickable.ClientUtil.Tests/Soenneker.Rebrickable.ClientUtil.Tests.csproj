@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Soenneker.Rebrickable.ClientUtil.csproj" />
+        <ProjectReference Include="..\..\src\Soenneker.Rebrickable.ClientUtil\Soenneker.Rebrickable.ClientUtil.csproj" />
     </ItemGroup>
 
     <ItemGroup>
