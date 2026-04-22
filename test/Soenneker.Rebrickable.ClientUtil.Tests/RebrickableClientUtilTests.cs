@@ -1,20 +1,19 @@
-﻿using Soenneker.Rebrickable.ClientUtil.Abstract;
-using Soenneker.Tests.FixturedUnit;
-using Xunit;
+using Soenneker.Rebrickable.ClientUtil.Abstract;
+using Soenneker.Tests.HostedUnit;
 
 namespace Soenneker.Rebrickable.ClientUtil.Tests;
 
-[Collection("Collection")]
-public sealed class RebrickableClientUtilTests : FixturedUnitTest
+[ClassDataSource<Host>(Shared = SharedType.PerTestSession)]
+public sealed class RebrickableClientUtilTests : HostedUnitTest
 {
     private readonly IRebrickableClientUtil _kiotaclient;
 
-    public RebrickableClientUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
+    public RebrickableClientUtilTests(Host host) : base(host)
     {
         _kiotaclient = Resolve<IRebrickableClientUtil>(true);
     }
 
-    [Fact]
+    [Test]
     public void Default()
     {
 
