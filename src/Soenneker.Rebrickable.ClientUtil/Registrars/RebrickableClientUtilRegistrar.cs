@@ -6,12 +6,12 @@ using Soenneker.Rebrickable.ClientUtil.Abstract;
 namespace Soenneker.Rebrickable.ClientUtil.Registrars;
 
 /// <summary>
-/// A .NET thread-safe singleton HttpClient for GitHub
+/// Registers the lazily initialized Rebrickable API client.
 /// </summary>
 public static class RebrickableClientUtilRegistrar
 {
     /// <summary>
-    /// Adds <see cref="RebrickableClientUtil"/> as a singleton service. <para/>
+    /// Adds the Rebrickable API client utility as a singleton service. <para/>
     /// </summary>
     public static IServiceCollection AddRebrickableClientUtilAsSingleton(this IServiceCollection services)
     {
@@ -21,7 +21,7 @@ public static class RebrickableClientUtilRegistrar
     }
 
     /// <summary>
-    /// Adds <see cref="RebrickableClientUtil"/> as a scoped service. <para/>
+    /// Adds the Rebrickable API client utility as a scoped service backed by the singleton HTTP client provider. <para/>
     /// </summary>
     public static IServiceCollection AddRebrickableClientUtilAsScoped(this IServiceCollection services)
     {

@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Kiota.Http.HttpClientLibrary;
-using Soenneker.Extensions.Configuration;
 using Soenneker.Extensions.ValueTask;
-using Soenneker.Kiota.GenericAuthenticationProvider;
 using Soenneker.Rebrickable.Client.Abstract;
 using Soenneker.Rebrickable.ClientUtil.Abstract;
 using Soenneker.Rebrickable.OpenApiClient;
@@ -13,17 +11,14 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Rebrickable.ClientUtil;
 
-///<inheritdoc cref="IRebrickableClientUtil"/>
 public sealed class RebrickableClientUtil : IRebrickableClientUtil
 {
     private readonly AsyncSingleton<RebrickableOpenApiClient> _client;
     private readonly IRebrickableHttpClient _httpClientUtil;
-    private readonly IConfiguration _configuration;
 
-    public RebrickableClientUtil(IRebrickableHttpClient httpClientUtil, IConfiguration configuration)
+    public RebrickableClientUtil(IRebrickableHttpClient httpClientUtil, IConfiguration _)
     {
         _httpClientUtil = httpClientUtil;
-        _configuration = configuration;
         _client = new AsyncSingleton<RebrickableOpenApiClient>(CreateClient);
     }
 
@@ -31,9 +26,10 @@ public sealed class RebrickableClientUtil : IRebrickableClientUtil
     {
         HttpClient httpClient = await _httpClientUtil.Get(token).NoSync();
 
-        var apiKey = _configuration.GetValueStrict<string>("Rebrickable:ApiKey");
-
-        var requestAdapter = new HttpClientRequestAdapter(new GenericAuthenticationProvider("Authorization", $"key {apiKey}"), httpClient: httpClient);
+        var requestAdapter = new HttpClientRequestAdapter(new Microsoft.Kiota.Abstractions.Authentication.AnonymousAuthenticationProvider(), httpClient: httpClient)
+        {
+            BaseUrl = httpClient.BaseAddress!.ToString().TrimEnd('/')
+        };
 
         return new RebrickableOpenApiClient(requestAdapter);
     }
@@ -43,18 +39,11 @@ public sealed class RebrickableClientUtil : IRebrickableClientUtil
         return _client.Get(cancellationToken);
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
     }
 
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();

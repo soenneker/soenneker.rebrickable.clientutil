@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <Description>An async thread-safe singleton for Rebrickable OpenApiClient</Description>
+        <Description>Provides a lazily initialized, authenticated Rebrickable API client.</Description>
         <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.Rebrickable.ClientUtil</AssemblyName>
@@ -44,7 +44,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Kiota.GenericAuthenticationProvider" Version="4.0.40" />
         <PackageReference Include="Soenneker.Rebrickable.Client" Version="4.0.260" />
         <PackageReference Include="Soenneker.Rebrickable.OpenApiClient" Version="4.0.308" />
     </ItemGroup>
