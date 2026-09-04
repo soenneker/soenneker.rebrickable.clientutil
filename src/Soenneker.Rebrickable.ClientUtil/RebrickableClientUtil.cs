@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Soenneker.Rebrickable.ClientUtil;
 
+/// <inheritdoc cref="IRebrickableClientUtil" />
 public sealed class RebrickableClientUtil : IRebrickableClientUtil
 {
     private readonly AsyncSingleton<RebrickableOpenApiClient> _client;
