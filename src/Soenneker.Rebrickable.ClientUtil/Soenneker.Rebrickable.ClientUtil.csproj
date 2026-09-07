@@ -44,7 +44,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Soenneker.Rebrickable.Client" Version="4.0.278" />
+        <PackageReference Include="Soenneker.Rebrickable.Client" Version="4.0.279" />
         <PackageReference Include="Soenneker.Rebrickable.OpenApiClient" Version="4.0.319" />
     </ItemGroup>
 </Project>
