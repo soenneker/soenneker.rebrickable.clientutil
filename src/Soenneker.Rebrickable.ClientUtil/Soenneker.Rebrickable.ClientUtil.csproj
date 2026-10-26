@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework>net11.0</TargetFramework>
         <IsAotCompatible>true</IsAotCompatible>
         <Nullable>enable</Nullable>
         <Platforms>AnyCPU</Platforms>
@@ -9,7 +9,7 @@
 
     <PropertyGroup>
         <Description>Provides a lazily initialized, authenticated Rebrickable API client.</Description>
-        <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
+        <Version Condition="'$(BUILD_VERSION)' == ''">11.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.Rebrickable.ClientUtil</AssemblyName>
         <PackageId>Soenneker.Rebrickable.ClientUtil</PackageId>
@@ -46,6 +46,6 @@
 
     <ItemGroup>
         <PackageReference Include="Soenneker.Rebrickable.Client" Version="4.0.328" />
-        <PackageReference Include="Soenneker.Rebrickable.OpenApiClient" Version="4.0.355" />
+        <PackageReference Include="Soenneker.Rebrickable.OpenApiClient" Version="4.0.356" />
     </ItemGroup>
 </Project>
